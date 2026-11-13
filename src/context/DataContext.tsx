@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef, useMemo } from "react";
 import { 
   collection, 
   doc, 
@@ -2536,57 +2536,78 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   };
 
+  // ---- Stable context value --------------------------------------------
+  // Action functions are re-created on every render. Exposing them through
+  // stable proxies (that always call the latest implementation) lets the
+  // context value change ONLY when real data changes, so views no longer
+  // re-render on every unrelated state update.
+  const latestActions = {
+    transferStockToCourier,
+    runDataMigration,
+    removeToast,
+    addToast,
+    saveCustomer,
+    toggleCustomerBlacklist,
+    syncAllCancelledCustomersToBlacklist,
+    deleteCustomer,
+    saveProduct,
+    adjustProductStock,
+    deleteProduct,
+    saveCourier,
+    deleteCourier,
+    createSale,
+    updateSaleStatus,
+    updateSale,
+    copySaleAsNew,
+    deleteSale,
+    saveExpense,
+    deleteExpense,
+    saveSettings,
+    resetAllData,
+    wipeAllSystemData,
+    importExcelData,
+    importBackupJSON,
+    setGoogleAccessToken,
+    syncSingleSaleToCalendar,
+    syncAllSalesToCalendar,
+    syncSingleCustomerToContacts,
+    syncAllCustomersToContacts
+  };
+  const actionsRef = useRef(latestActions);
+  actionsRef.current = latestActions;
+  const stableActions = useMemo(() => {
+    const out: Record<string, (...args: any[]) => any> = {};
+    for (const key of Object.keys(actionsRef.current)) {
+      out[key] = (...args: any[]) => (actionsRef.current as any)[key](...args);
+    }
+    return out as typeof latestActions;
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      currentUser,
+      loading,
+      customers,
+      products,
+      couriers,
+      sales,
+      expenses,
+      settings,
+      toasts,
+      stockTransfers,
+      isMigrating,
+      googleAccessToken,
+      isNewOrderOpen,
+      setIsNewOrderOpen,
+      offlineMode,
+      setOfflineMode,
+      ...stableActions
+    }),
+    [currentUser, loading, customers, products, couriers, sales, expenses, settings, toasts, stockTransfers, isMigrating, googleAccessToken, isNewOrderOpen, offlineMode, stableActions]
+  );
+
   return (
-    <DataContext.Provider
-      value={{
-        currentUser,
-        loading,
-        customers,
-        products,
-        couriers,
-        sales,
-        expenses,
-        settings,
-        toasts,
-        stockTransfers,
-        isMigrating,
-        transferStockToCourier,
-        runDataMigration,
-        removeToast,
-        addToast,
-        saveCustomer,
-        toggleCustomerBlacklist,
-        syncAllCancelledCustomersToBlacklist,
-        deleteCustomer,
-        saveProduct,
-        adjustProductStock,
-        deleteProduct,
-        saveCourier,
-        deleteCourier,
-        createSale,
-        updateSaleStatus,
-        updateSale,
-        copySaleAsNew,
-        deleteSale,
-        saveExpense,
-        deleteExpense,
-        saveSettings,
-        resetAllData,
-        wipeAllSystemData,
-        importExcelData,
-        importBackupJSON,
-        googleAccessToken,
-        setGoogleAccessToken,
-        syncSingleSaleToCalendar,
-        syncAllSalesToCalendar,
-        syncSingleCustomerToContacts,
-        syncAllCustomersToContacts,
-        isNewOrderOpen,
-        setIsNewOrderOpen,
-        offlineMode,
-        setOfflineMode
-      }}
-    >
+    <DataContext.Provider value={contextValue as any}>
       {children}
     </DataContext.Provider>
   );
