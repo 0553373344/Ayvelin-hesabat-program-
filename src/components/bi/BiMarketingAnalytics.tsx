@@ -167,7 +167,7 @@ export default function BiMarketingAnalytics({ sales, expenses, products }: BiMa
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-black text-slate-800 tracking-tight flex items-center gap-1.5">
-              <Target className="w-4 h-4 text-indigo-600 animate-pulse" /> Mağaza Reklam & Kanal Analitikası
+              <Target className="w-4 h-4 text-indigo-600" /> Mağaza Reklam & Kanal Analitikası
             </h3>
             {useRealData && isRealDataAvailable ? (
               <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center gap-1">
