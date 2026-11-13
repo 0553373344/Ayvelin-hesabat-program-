@@ -824,7 +824,7 @@ export default function LoyaltyProgramView() {
                       {/* Active Coupons Count */}
                       <td className="py-3 px-4 text-center">
                         {activeCouponsCount > 0 ? (
-                          <span className="inline-block bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded text-[10px] border border-indigo-100 animate-pulse">
+                          <span className="inline-block bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded text-[10px] border border-indigo-100">
                             {activeCouponsCount} AKTİV
                           </span>
                         ) : (
@@ -854,7 +854,7 @@ export default function LoyaltyProgramView() {
       {/* 6. Customer Loyalty Detail Modal */}
       <AnimatePresence>
         {selectedCustomer && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/50 backdrop-blur-xs">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/50">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
