@@ -415,7 +415,7 @@ export default function BlacklistView() {
                 {blacklistedCustomers.length} Müştəri
               </span>
               {unsyncedCancelledCount > 0 && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 animate-pulse">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
                   +{unsyncedCancelledCount} yeni ləğv aşkarlandı
                 </span>
               )}
@@ -1004,7 +1004,7 @@ export default function BlacklistView() {
       {/* Modal 1: Add Customer to Blacklist */}
       <AnimatePresence>
         {isAddModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -1175,7 +1175,7 @@ export default function BlacklistView() {
       {/* Modal 2: Edit Blacklist Reason */}
       <AnimatePresence>
         {isEditReasonModalOpen && selectedCustomer && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -1252,7 +1252,7 @@ export default function BlacklistView() {
       {/* Modal 3: Unblacklist Confirmation */}
       <AnimatePresence>
         {isUnblacklistModalOpen && selectedCustomer && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
