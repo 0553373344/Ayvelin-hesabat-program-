@@ -63,7 +63,7 @@ function loadLocalFallbackDb() {
 
 function saveLocalFallbackDb() {
   try {
-    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(localDb, null, 2), "utf8");
+    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(localDb), "utf8");
   } catch (err) {
     console.error("[Fallback DB] Error saving fallback DB to disk:", err);
   }
