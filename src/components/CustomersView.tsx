@@ -1255,7 +1255,7 @@ export default function CustomersView() {
                 : "bg-white hover:bg-slate-50 text-slate-600 border-slate-200"
             }`}
           >
-            <Layers className={`w-3.5 h-3.5 ${isGroupedBySpend ? "text-indigo-600 animate-pulse" : "text-slate-400"}`} />
+            <Layers className={`w-3.5 h-3.5 ${isGroupedBySpend ? "text-indigo-600" : "text-slate-400"}`} />
             <span>Sərfiyyata görə qruplaşdır</span>
             <span className={`px-1.5 py-0.5 rounded-md text-[9px] font-mono font-bold ${
               isGroupedBySpend ? "bg-indigo-200/50 text-indigo-800" : "bg-slate-150 text-slate-500"
@@ -2008,7 +2008,7 @@ export default function CustomersView() {
               animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCustomerModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-black/60"
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }}
@@ -2188,7 +2188,7 @@ export default function CustomersView() {
               animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMergeModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-black/60"
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }}
@@ -2276,7 +2276,7 @@ export default function CustomersView() {
               animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsFastOrderModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-black/60"
             />
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }}
