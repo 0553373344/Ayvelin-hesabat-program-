@@ -363,11 +363,11 @@ export default function ProductsView() {
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-slate-900/80 backdrop-blur-sm text-white font-mono text-[9px] font-bold rounded">
+                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-slate-900/80 text-white font-mono text-[9px] font-bold rounded">
                       {prod.SKU}
                     </div>
                     {matchesLowStock && (
-                      <div className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-red-600/90 text-white text-[9px] font-bold rounded animate-pulse flex items-center gap-1">
+                      <div className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-red-600/90 text-white text-[9px] font-bold rounded flex items-center gap-1">
                         Az Stok 🔴
                       </div>
                     )}
@@ -395,7 +395,7 @@ export default function ProductsView() {
                     <div className="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl">
                       <div className="flex flex-col">
                         <span className="text-[9px] text-slate-400 uppercase font-sans">Stok Qalığı</span>
-                        <span className={`text-base font-bold font-mono leading-none mt-1 flex items-center gap-1 ${matchesLowStock ? 'text-red-500 font-extrabold animate-pulse' : 'text-slate-700'}`}>
+                        <span className={`text-base font-bold font-mono leading-none mt-1 flex items-center gap-1 ${matchesLowStock ? 'text-red-500 font-extrabold' : 'text-slate-700'}`}>
                           {prod.stock} ədəd {matchesLowStock && "🔴"}
                         </span>
                       </div>
