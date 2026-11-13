@@ -118,7 +118,7 @@ export default function ProfileMenu({ onNavigate }: ProfileMenuProps) {
       <button
         id="profile_menu_trigger"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2.5 p-1.5 pl-3 rounded-xl bg-white/50 hover:bg-white/70 active:bg-white/80 border border-white/30 backdrop-blur-md transition-all cursor-pointer shadow-xs focus:outline-none"
+        className="flex items-center gap-2.5 p-1.5 pl-3 rounded-xl bg-white/50 hover:bg-white/70 active:bg-white/80 border border-white/30 transition-all cursor-pointer shadow-xs focus:outline-none"
       >
         <div className="flex flex-col text-left hidden sm:flex">
           <span className="text-[11px] font-extrabold text-slate-805 leading-none">
@@ -167,7 +167,7 @@ export default function ProfileMenu({ onNavigate }: ProfileMenuProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-2 w-72 bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-slate-100/80 p-4 z-50 overflow-hidden font-sans"
+            className="absolute right-0 mt-2 w-72 bg-white/95 rounded-2xl shadow-2xl border border-slate-100/80 p-4 z-50 overflow-hidden font-sans"
           >
             {/* Header / Info Section */}
             <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100" id="profile_dropdown_user_header">
@@ -224,7 +224,7 @@ export default function ProfileMenu({ onNavigate }: ProfileMenuProps) {
                   Baza Əlaqəsi
                 </span>
                 <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-bold text-[9px] border border-emerald-200/60 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                   Canlı Online
                 </span>
               </div>
