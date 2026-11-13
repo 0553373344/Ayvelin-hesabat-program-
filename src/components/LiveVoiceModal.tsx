@@ -221,7 +221,7 @@ export default function LiveVoiceModal({ isOpen, onClose }: LiveVoiceModalProps)
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 p-4">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -259,7 +259,7 @@ export default function LiveVoiceModal({ isOpen, onClose }: LiveVoiceModalProps)
             <div className={`absolute w-64 h-64 rounded-full blur-3xl transition-all duration-700 pointer-events-none ${
               status === "speaking" ? "bg-indigo-500/30 scale-125" :
               status === "connected" ? "bg-emerald-500/20 scale-100" :
-              status === "connecting" ? "bg-amber-500/20 animate-pulse" :
+              status === "connecting" ? "bg-amber-500/20" :
               "bg-rose-500/20"
             }`}></div>
 
@@ -268,12 +268,12 @@ export default function LiveVoiceModal({ isOpen, onClose }: LiveVoiceModalProps)
               {/* Pulsing Outer Rings */}
               {status === "speaking" && (
                 <>
-                  <div className="absolute w-40 h-40 rounded-full border border-indigo-500/40 animate-ping opacity-75"></div>
-                  <div className="absolute w-48 h-48 rounded-full border border-blue-400/30 animate-pulse"></div>
+                  <div className="absolute w-40 h-40 rounded-full border border-indigo-500/40 opacity-75"></div>
+                  <div className="absolute w-48 h-48 rounded-full border border-blue-400/30"></div>
                 </>
               )}
               {status === "connected" && !isMuted && (
-                <div className="absolute w-36 h-36 rounded-full border border-emerald-500/30 animate-pulse"></div>
+                <div className="absolute w-36 h-36 rounded-full border border-emerald-500/30"></div>
               )}
 
               <div className={`w-28 h-28 rounded-full flex items-center justify-center shadow-2xl border transition-all duration-500 relative z-10 ${
@@ -285,7 +285,7 @@ export default function LiveVoiceModal({ isOpen, onClose }: LiveVoiceModalProps)
                 {status === "speaking" ? (
                   <Volume2 className="w-10 h-10 text-white animate-bounce" />
                 ) : status === "connected" ? (
-                  isMuted ? <MicOff className="w-10 h-10 text-slate-500" /> : <Mic className="w-10 h-10 text-emerald-400 animate-pulse" />
+                  isMuted ? <MicOff className="w-10 h-10 text-slate-500" /> : <Mic className="w-10 h-10 text-emerald-400" />
                 ) : status === "connecting" ? (
                   <RefreshCw className="w-10 h-10 text-amber-400 animate-spin" />
                 ) : (
@@ -298,8 +298,8 @@ export default function LiveVoiceModal({ isOpen, onClose }: LiveVoiceModalProps)
             <div className="z-10 text-center space-y-1">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-semibold">
                 <span className={`w-2 h-2 rounded-full ${
-                  status === "speaking" ? "bg-indigo-400 animate-ping" :
-                  status === "connected" ? (isMuted ? "bg-slate-500" : "bg-emerald-400 animate-pulse") :
+                  status === "speaking" ? "bg-indigo-400" :
+                  status === "connected" ? (isMuted ? "bg-slate-500" : "bg-emerald-400") :
                   status === "connecting" ? "bg-amber-400 animate-spin" :
                   "bg-rose-500"
                 }`}></span>
