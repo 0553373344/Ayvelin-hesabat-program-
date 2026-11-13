@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Real business data — never commit
+local_db_fallback.json
