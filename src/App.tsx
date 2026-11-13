@@ -76,11 +76,7 @@ const NetworkStatusBadge = React.memo(function NetworkStatusBadge() {
 
   return (
     <div 
-      className={`px-2.5 py-1 rounded-xl border flex items-center gap-1.5 text-[10px] font-semibold transition-all select-none ${
-        isOnline 
-          ? "bg-emerald-50 text-emerald-800 border-emerald-200/90 shadow-xs" 
-          : "bg-amber-50 text-amber-800 border-amber-200/90"
-      }`}
+      className={`h-10 px-3 rounded-full flex items-center gap-1.5 text-[11px] font-semibold select-none bg-white ${isOnline ? "text-emerald-700" : "text-amber-700"}`}
       title={
         isOnline
           ? "🟢 Online Baza: Firebase Firestore bulud serveri ilə birbaşa əlaqədədir. Daxil edilən bütün sifariş, müştəri və məhsul qeydləri dərhal online buluda yazılır və digər cihazlarla sinxronlaşdırılır."
@@ -89,7 +85,7 @@ const NetworkStatusBadge = React.memo(function NetworkStatusBadge() {
     >
       <span className="relative flex h-2 w-2">
         {isOnline && (
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span className=" absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         )}
         <span className={`relative inline-flex rounded-full h-2 w-2 ${isOnline ? "bg-emerald-500" : "bg-amber-500"}`}></span>
       </span>
@@ -108,7 +104,7 @@ const HeaderClock = React.memo(function HeaderClock() {
   }, []);
 
   return (
-    <div className="bg-white/80 px-3 py-1 rounded-xl border border-[#D4DAE4] hidden md:flex items-center gap-2 text-[#8B95A8] font-mono text-[10px] shadow-xs">
+    <div className="bg-white h-10 px-4 rounded-full hidden md:flex items-center gap-2 text-[11px]">
       <Clock className="w-3.5 h-3.5 text-[#1A1F2E]" />
       <span className="text-[#1A1F2E] font-medium">
         {currentTime.toLocaleTimeString("az-AZ", { hour12: false })}{" - "}
@@ -192,37 +188,6 @@ function MainAppShell() {
   const rawPath = location.pathname.substring(1);
   const activeTab = tabRegistry.some(t => t.id === rawPath) ? rawPath : "dashboard";
 
-  // Preload all chunk components during idle time so every tab click is instant with 0ms delay
-  useEffect(() => {
-    const preload = () => {
-      import("./components/SalesView");
-      import("./components/ProductsView");
-      import("./components/CustomersView");
-      import("./components/CouriersView");
-      import("./components/CourierAnalyticsView");
-      import("./components/ExpensesView");
-      import("./components/StatisticsView");
-      import("./components/SalesAuditView");
-      import("./components/LoyaltyProgramView");
-      import("./components/BlacklistView");
-      import("./components/AiAnalystView");
-      import("./components/ManagerPanelView");
-      import("./components/SettingsView");
-    };
-    if ("requestIdleCallback" in window) {
-      (window as any).requestIdleCallback(preload);
-    } else {
-      setTimeout(preload, 150);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Lightly trigger resize for charts in newly active tab
-    requestAnimationFrame(() => {
-      window.dispatchEvent(new Event("resize"));
-    });
-  }, [activeTab]);
-
   useEffect(() => {
     if (location.pathname === "/" || location.pathname === "") {
       navigate("/dashboard", { replace: true });
@@ -240,72 +205,61 @@ function MainAppShell() {
     }
   }, [activeTab]);
 
+  const activeItem = tabRegistry.find(t => t.id === activeTab);
+  const ActiveIcon = activeItem?.icon;
+
   return (
-    <div 
-      className="min-h-screen w-full bg-[#E8EDF2] text-slate-850 flex overflow-hidden font-sans select-none antialiased md:relative"
-    >
-      {/* 2. Main content block canvas */}
+    <div className="h-screen w-full bg-canvas text-ink flex overflow-hidden font-sans select-none antialiased">
       <div className="flex-1 flex flex-col h-screen overflow-hidden w-full">
-        
-        {/* Top Header navbar with digital timer */}
-        <header className="h-14 border-b border-[#D4DAE4] bg-[#E8EDF2] flex items-center justify-between px-4 sm:px-6 z-20 shrink-0 gap-3">
-          <div className="flex items-center gap-2.5 shrink-0">
-            {/* Clickable Brand Logo & Dashboard Nav item */}
-            <div 
-              onClick={() => navigate("/dashboard")}
-              className="flex items-center gap-2 cursor-pointer group select-none p-1 rounded-xl hover:bg-white/60 transition-all"
-              title="Ana səhifəyə keç (Dashboard)"
-            >
-              <div className="w-8 h-8 bg-[#1A1F2E] rounded-lg flex items-center justify-center font-bold text-white shadow-sm overflow-hidden select-none shrink-0 group-hover:scale-105 transition-transform">
-                {settings.logoUrl ? (
-                  <img src={settings.logoUrl} alt="Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                ) : (
-                  (settings.businessName || "Ayvel").slice(0, 2).toUpperCase()
-                )}
-              </div>
 
-              <div className="flex items-center gap-1.5">
-                {(() => {
-                  const activeItem = tabRegistry.find(t => t.id === activeTab);
-                  if (activeItem) {
-                    const Icon = activeItem.icon;
-                    return <Icon className="w-4 h-4 text-[#1A1F2E] group-hover:text-indigo-600 transition-colors shrink-0" />;
-                  }
-                  return null;
-                })()}
-                <h2 className="text-sm font-semibold text-[#1A1F2E] group-hover:text-indigo-600 transition-colors hidden sm:block">
-                  {tabRegistry.find(t => t.id === activeTab)?.label || "Dashboard"}
-                </h2>
-              </div>
+        {/* Header */}
+        <header className="h-16 flex items-center justify-between px-4 sm:px-6 z-20 shrink-0 gap-3">
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-2.5 shrink-0 text-left"
+            title="Ana səhifə"
+          >
+            <div className="w-10 h-10 bg-ink rounded-2xl flex items-center justify-center font-semibold text-lime overflow-hidden shrink-0 text-sm">
+              {settings.logoUrl ? (
+                <img src={settings.logoUrl} alt="Logo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              ) : (
+                (settings.businessName || "Ayvel").slice(0, 2).toUpperCase()
+              )}
             </div>
-          </div>
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="text-[11px] text-slate-500">Salam,</span>
+              <span className="text-sm font-semibold flex items-center gap-1.5">
+                {ActiveIcon && <ActiveIcon className="w-4 h-4" />}
+                {activeItem?.label || "Dashboard"}
+              </span>
+            </div>
+          </button>
 
-          {/* Centered Global Search Bar */}
-          <div className="flex-1 max-w-xs md:max-w-md mx-1 sm:mx-6">
+          <div className="flex-1 max-w-xs md:max-w-md mx-1 sm:mx-4">
             <GlobalSearchBar />
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={toggleTheme}
-              title="Mövzunu Dəyiş"
-              className="p-2 bg-white/80 border border-[#D4DAE4] rounded-xl text-[#1A1F2E] hover:bg-white transition-all shadow-xs shrink-0 cursor-pointer"
+              title="Mövzunu dəyiş"
+              className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-ink shadow-xs"
             >
-              {theme === "light" ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5" />}
+              {theme === "light" ? <Moon className="w-[18px] h-[18px]" /> : <Sun className="w-[18px] h-[18px]" />}
             </button>
             <NetworkStatusBadge />
             <HeaderClock />
-
             <ProfileMenu onNavigate={(tabId) => navigate("/" + tabId)} />
           </div>
         </header>
 
-        {/* Top Horizontal Navigation Bar - Bölmələr üstdə görünən və soldan sağa sıralanmış */}
-        <nav 
+        {/* Section chips */}
+        <nav
           aria-label="Əsas Bölmələr"
-          className="bg-white/95 dark:bg-[#12161F] border-b border-[#D4DAE4] dark:border-slate-800 px-3 sm:px-6 py-2 flex items-center z-10 shrink-0 gap-2 overflow-x-auto scrollbar-none shadow-xs select-none"
+          className="px-4 sm:px-6 pb-3 flex items-center z-10 shrink-0 overflow-x-auto scrollbar-none"
         >
-          <div ref={navScrollRef} className="flex items-center gap-1.5 shrink-0">
+          <div ref={navScrollRef} className="flex items-center gap-2 shrink-0">
             {tabRegistry.map((tab) => {
               const isActive = activeTab === tab.id;
               const Icon = tab.icon;
@@ -314,27 +268,12 @@ function MainAppShell() {
                   key={tab.id}
                   type="button"
                   data-active={isActive}
-                  onMouseEnter={() => {
-                    const imp = viewImports[tab.id];
-                    if (imp) imp();
-                  }}
-                  onPointerDown={() => {
-                    const imp = viewImports[tab.id];
-                    if (imp) imp();
-                  }}
-                  onClick={() => {
-                    if (activeTab !== tab.id) {
-                      navigate("/" + tab.id);
-                    }
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap active:scale-95 transition-all duration-100 cursor-pointer select-none shrink-0 ${
-                    isActive
-                      ? "bg-[#1A1F2E] text-white dark:bg-emerald-600 dark:text-white shadow-sm ring-1 ring-black/5 font-semibold scale-[1.02]"
-                      : "bg-[#E8EDF2]/90 hover:bg-[#E8EDF2] text-slate-700 hover:text-slate-900 dark:bg-slate-800/80 dark:hover:bg-slate-800 dark:text-slate-300 dark:hover:text-white border border-[#D4DAE4]/80 dark:border-slate-700 shadow-xs"
-                  }`}
+                  onPointerEnter={() => viewImports[tab.id]?.()}
+                  onClick={() => { if (!isActive) navigate("/" + tab.id); }}
+                  className="chip whitespace-nowrap shrink-0 active:scale-95 transition-transform"
                   title={tab.label}
                 >
-                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-emerald-400 dark:text-white" : "text-slate-500 dark:text-slate-400"}`} />
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-lime" : ""}`} />
                   <span>{tab.label}</span>
                 </button>
               );
@@ -342,13 +281,13 @@ function MainAppShell() {
           </div>
         </nav>
 
-        {/* Major view body area with instant, 0ms preserved tab switches */}
-        <main className="flex-1 overflow-y-auto bg-[#E8EDF2] p-3 sm:p-6 pb-24 lg:pb-8">
+        {/* Active view */}
+        <main className="flex-1 overflow-y-auto px-3 sm:px-6 pb-28 lg:pb-8">
           <Suspense
             fallback={
               <div className="flex flex-col items-center justify-center min-h-[300px] w-full text-slate-500 gap-3 py-16">
-                <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-                <span className="text-xs font-medium">Bölmə yüklənir...</span>
+                <div className="w-7 h-7 border-[3px] border-ink border-t-lime rounded-full animate-spin" />
+                <span className="text-xs font-medium">Yüklənir...</span>
               </div>
             }
           >
@@ -364,12 +303,9 @@ function MainAppShell() {
         </main>
 
         <BottomNavBar />
-
       </div>
 
-      {/* Floating high-fidelity bottom-right notification toast system */}
       <DataProviderToastPortal />
-
     </div>
   );
 }
