@@ -1,0 +1,455 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* General Layout Background & Typography Reset */
+body {
+  font-family: "Inter", system-ui, sans-serif !important;
+  background-color: #E8EDF2 !important; /* Cool-Gray primary background */
+  color: #1A1F2E !important; /* Deep Navy primary text */
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: "Inter", system-ui, sans-serif !important;
+}
+
+/* Strict weight guidelines: regular (400), medium (500), never bold/700 */
+*, ::before, ::after {
+  font-weight: 400;
+}
+b, strong, h1, h2, h3, h4, h5, h6, th, [class*="font-semibold"], [class*="font-bold"], [class*="font-extrabold"] {
+  font-weight: 500 !important;
+}
+
+/* Helper class to hide scrollbar on containers */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Neumorphic outsets for general cards */
+.neumorphic-card,
+main div[class*="bg-white"],
+main form[class*="bg-white"],
+main table[class*="bg-white"],
+main select[class*="bg-white"],
+[id*="card-"],
+div[class*="bg-white"][class*="shadow-2xl"],
+div[class*="bg-white"][class*="rounded-3xl"] {
+  background-color: #FFFFFF !important;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.06), -2px -2px 6px rgba(255,255,255,0.8) !important;
+  border-radius: 16px !important; /* Outer panels / large cards: 16px */
+  border: 1px solid #D4DAE4 !important; /* Thin dividers at 1px, color #D4DAE4 */
+  transition: box-shadow 150ms ease, border-color 150ms ease !important;
+}
+
+/* Interactive feedback on card hover */
+.neumorphic-card:hover,
+main div[class*="bg-white"]:hover,
+[id*="card-"]:hover {
+  box-shadow: 6px 6px 14px rgba(0,0,0,0.08), -3px -3px 8px rgba(255,255,255,0.95) !important;
+  border-color: #B2BAC6 !important; /* darken border */
+  transform: none !important;
+}
+
+/* Neumorphic Inset shadow style (clock face, interactive lists, selected items) */
+.neumorphic-inset {
+  background-color: #F0F3F7 !important;
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.05), inset -3px -3px 6px rgba(255,255,255,0.8) !important;
+  border: 1px solid #D4DAE4 !important;
+}
+
+/* Inner cards (such as the Clock widget, calendar grid) */
+.inner-card,
+main div[class*="rounded-xl"],
+main pre[class*="rounded-xl"] {
+  border-radius: 14px !important; /* Inner cards: 14px */
+}
+
+/* List rows / pills (Subtle light border, white background, 8px radius) */
+.list-row,
+main table:not(.dark-panel *) tbody tr,
+main div[class*="p-2.5 bg-slate-50"],
+main div[class*="p-2 bg-slate-50"],
+main div[class*="p-2 bg-indigo-50"] {
+  border-radius: 8px !important; /* list rows: 8px radius */
+  background-color: #FFFFFF !important;
+  border: 1px solid #E8EDF2 !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.01) !important;
+  transition: box-shadow 150ms ease, border-color 150ms ease, background-color 150ms ease !important;
+}
+
+.list-row:hover,
+main table:not(.dark-panel *) tbody tr:hover {
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.04) !important;
+  border-color: #D4DAE4 !important;
+  background-color: #F0F3F7 !important;
+}
+
+/* Badges / counters: small pill, dark navy bg, white text, fully rounded, 11px font */
+.badge-counter,
+span[class*="bg-[#6bbd87]/10"],
+span[class*="bg-emerald-50"],
+span[class*="text-emerald-700"],
+span[class*="bg-amber-50"],
+span[class*="bg-indigo-50"],
+span[class*="bg-[#006bf8]/10"] {
+  background-color: #1A1F2E !important; /* deep navy accent */
+  color: #FFFFFF !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  padding: 2px 8.5px !important;
+  border-radius: 999px !important; /* Fully rounded */
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+/* Strict custom inputs (8px radius, cool-gray backdrop, light inner shadow) */
+main input[type="text"],
+main input[type="number"],
+main input[type="date"],
+main input[type="search"],
+main textarea,
+main select {
+  background-color: #F0F3F7 !important;
+  border: 1px solid #D4DAE4 !important;
+  color: #1A1F2E !important;
+  border-radius: 8px !important; /* 8px radius */
+  padding: 0.5rem 0.75rem !important;
+  font-weight: 400 !important;
+  font-family: inherit;
+  transition: all 150ms ease !important;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.03) !important;
+}
+
+main input[type="text"]:focus,
+main input[type="number"]:focus,
+main input[type="date"]:focus,
+main input[type="search"]:focus,
+main textarea:focus,
+main select:focus {
+  background-color: #FFFFFF !important;
+  border-color: #1A1F2E !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(26, 31, 46, 0.08) !important;
+}
+
+/* Primary Active Accent Actions / Neumorphic Buttons (Navy Accent) */
+main button[class*="bg-indigo-600"],
+main button[class*="bg-indigo-700"],
+main button[class*="bg-slate-900"],
+main button[class*="bg-[#1e3a5f]"],
+main button[type="submit"],
+main button[class*="bg-[#6bbd87]"] {
+  background-color: #1A1F2E !important; /* deep navy accent/active state */
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important; /* 8px for regular actions */
+  border: 1px solid #1A1F2E !important;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1), -1px -1px 3px rgba(255,255,255,0.5) !important;
+  transition: all 150ms ease !important;
+  padding: 0.5rem 1rem !important;
+}
+
+main button[class*="bg-indigo-600"]:hover,
+main button[class*="bg-indigo-700"]:hover,
+main button[class*="bg-slate-900"]:hover,
+main button[type="submit"]:hover {
+  background-color: #2D3548 !important;
+  border-color: #2D3548 !important;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.12), -2px -2px 4px rgba(255,255,255,0.6) !important;
+  transform: none !important;
+}
+
+/* Secondary Actions / Subdued Neumorphic Buttons */
+main button[class*="bg-slate-100"],
+main button[class*="bg-gray-100"],
+main button[class*="bg-indigo-50"],
+main button[class*="border-slate-200"] {
+  background-color: #FFFFFF !important;
+  border: 1px solid #D4DAE4 !important;
+  color: #8B95A8 !important; /* #8B95A8 muted */
+  border-radius: 8px !important;
+  transition: all 150ms ease !important;
+  padding: 0.5rem 1rem !important;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.03), -1px -1px 4px rgba(255,255,255,0.6) !important;
+}
+
+main button[class*="bg-slate-100"]:hover,
+main button[class*="bg-gray-100"]:hover {
+  background-color: #F0F3F7 !important;
+  color: #1A1F2E !important;
+  border-color: #B2BAC6 !important;
+}
+
+/* Muted Colors & placeholders */
+.text-muted,
+[class*="text-slate-400"],
+[class*="text-slate-500"],
+[class*="text-gray-400"] {
+  color: #8B95A8 !important;
+}
+
+::placeholder {
+  color: #B2BAC6 !important;
+}
+
+/* Active buttons or items inside tab containers */
+.active-pill {
+  background-color: #1A1F2E !important;
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+}
+
+/* Outline style with subtle strokes and rounded corners */
+svg {
+  stroke-width: 1.5px !important; /* 1.5px outline stroke */
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Custom Scrollbar styled elegantly to match neumorph surface */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Table styles overrides for neumorphic surface compatibility */
+thead:not(.dark-panel *), thead:not(.dark-panel *) tr {
+  background-color: #F0F3F7 !important;
+  color: #1A1F2E !important;
+  border-bottom: 1.5px solid #D4DAE4 !important;
+}
+
+tbody:not(.dark-panel *) tr {
+  border-bottom: 1px solid #E8EDF2 !important;
+}
+
+/* Toasts modeled in high end white flat layout */
+.toast-item-neumorphic {
+  background-color: #FFFFFF !important;
+  color: #1A1F2E !important;
+  border: 1px solid #D4DAE4 !important;
+  border-radius: 16px !important;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.06), -2px -2px 10px rgba(255,255,255,0.9) !important;
+}
+
+/* Clean slate coordinates for charts */
+g.recharts-cartesian-grid-horizontal line,
+g.recharts-cartesian-grid-vertical line {
+  stroke: #D4DAE4 !important;
+}
+
+
+/* --- High-Contrast Dark Mode Overrides --- */
+
+.dark body,
+.dark main[class*="bg-["],
+.dark header[class*="bg-[#E8EDF2]"] {
+  background-color: #12151C !important;
+  color: #E8EDF2 !important;
+  border-color: #2D3548 !important;
+}
+
+.dark main.bg-\[\#E8EDF2\] {
+  background-color: #12151C !important;
+}
+
+.dark header[class*="bg-[#E8EDF2]"] h2,
+.dark header[class*="bg-[#E8EDF2]"] svg {
+  color: #E8EDF2 !important;
+}
+
+.dark button[class*="bg-white/80"] {
+  background-color: #1E232E !important;
+  border-color: #2D3548 !important;
+  color: #E8EDF2 !important;
+}
+
+.dark .neumorphic-card,
+.dark main div[class*="bg-white"],
+.dark main form[class*="bg-white"],
+.dark main table[class*="bg-white"],
+.dark main select[class*="bg-white"],
+.dark [id*="card-"],
+.dark div[class*="bg-white"][class*="shadow-2xl"],
+.dark div[class*="bg-white"][class*="rounded-3xl"] {
+  background-color: #1E232E !important;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 6px rgba(255,255,255,0.05) !important;
+  border-color: #2D3548 !important;
+  color: #C1C8D4 !important;
+}
+
+.dark .neumorphic-card:hover,
+.dark main div[class*="bg-white"]:hover,
+.dark [id*="card-"]:hover {
+  box-shadow: 6px 6px 14px rgba(0,0,0,0.5), -3px -3px 8px rgba(255,255,255,0.08) !important;
+  border-color: #3F4A63 !important;
+}
+
+.dark .neumorphic-inset {
+  background-color: #151821 !important;
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.4), inset -3px -3px 6px rgba(255,255,255,0.03) !important;
+  border-color: #2D3548 !important;
+  color: #C1C8D4 !important;
+}
+
+.dark .list-row,
+.dark main table:not(.dark-panel *) tbody tr,
+.dark main div[class*="p-2.5 bg-slate-50"],
+.dark main div[class*="p-2 bg-slate-50"],
+.dark main div[class*="p-2 bg-indigo-50"],
+.dark main div[class*="bg-slate-50"],
+.dark main div[class*="bg-[#F0F3F7]"] {
+  background-color: #1E232E !important;
+  border-color: #2D3548 !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2) !important;
+  color: #C1C8D4 !important;
+}
+
+.dark .list-row:hover,
+.dark main table:not(.dark-panel *) tbody tr:hover {
+  background-color: #2D3548 !important;
+  border-color: #3F4A63 !important;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.3) !important;
+}
+
+.dark main input[type="text"],
+.dark main input[type="number"],
+.dark main input[type="date"],
+.dark main input[type="search"],
+.dark main textarea,
+.dark main select {
+  background-color: #12151C !important;
+  border-color: #2D3548 !important;
+  color: #C1C8D4 !important;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.4) !important;
+}
+
+.dark main input:focus,
+.dark main textarea:focus,
+.dark main select:focus {
+  background-color: #1E232E !important;
+  border-color: #4F628E !important;
+  box-shadow: 0 0 0 2px rgba(79, 98, 142, 0.3) !important;
+}
+
+.dark main button[class*="bg-indigo-600"],
+.dark main button[class*="bg-indigo-700"],
+.dark main button[class*="bg-slate-900"],
+.dark main button[class*="bg-[#1e3a5f]"],
+.dark main button[type="submit"],
+.dark main button[class*="bg-[#6bbd87]"] {
+  background-color: #4F628E !important;
+  color: #FFFFFF !important;
+  border-color: #4F628E !important;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.4), -1px -1px 3px rgba(255,255,255,0.1) !important;
+}
+
+.dark main button[class*="bg-slate-100"],
+.dark main button[class*="bg-gray-100"],
+.dark main button[class*="bg-indigo-50"],
+.dark main button[class*="border-slate-200"],
+.dark main button[class*="bg-white"] {
+  background-color: #1E232E !important;
+  border-color: #2D3548 !important;
+  color: #B2BAC6 !important;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2), -1px -1px 4px rgba(255,255,255,0.05) !important;
+}
+
+.dark .text-muted,
+.dark [class*="text-slate-400"],
+.dark [class*="text-slate-500"],
+.dark [class*="text-gray-400"],
+.dark [class*="text-slate-800"],
+.dark [class*="text-slate-900"] {
+  color: #B2BAC6 !important;
+}
+.dark [class*="text-slate-800"],
+.dark [class*="text-slate-900"],
+.dark h1, .dark h2, .dark h3 {
+  color: #E8EDF2 !important;
+}
+
+.dark ::placeholder {
+  color: #637AB0 !important;
+}
+
+.dark .active-pill {
+  background-color: #4F628E !important;
+  color: #FFFFFF !important;
+}
+
+.dark thead:not(.dark-panel *), .dark thead:not(.dark-panel *) tr {
+  background-color: #12151C !important;
+  color: #E8EDF2 !important;
+  border-bottom-color: #2D3548 !important;
+}
+
+.dark tbody:not(.dark-panel *) tr {
+  border-bottom-color: #1E232E !important;
+}
+
+.dark .toast-item-neumorphic,
+.dark div.toast-item-neumorphic {
+  background-color: #1E232E !important;
+  color: #E8EDF2 !important;
+  border-color: #2D3548 !important;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.4), -2px -2px 10px rgba(255,255,255,0.05) !important;
+}
+
+.dark g.recharts-cartesian-grid-horizontal line,
+.dark g.recharts-cartesian-grid-vertical line {
+  stroke: #2D3548 !important;
+}
+
+.dark text.recharts-text,
+.dark .recharts-tooltip-item,
+.dark .recharts-tooltip-label {
+  fill: #B2BAC6 !important;
+  color: #B2BAC6 !important;
+}
+.dark .recharts-default-tooltip {
+  background-color: #1E232E !important;
+  border-color: #2D3548 !important;
+}
+
+.dark .badge-counter,
+.dark span[class*="bg-[#6bbd87]/10"],
+.dark span[class*="bg-emerald-50"],
+.dark span[class*="text-emerald-700"],
+.dark span[class*="bg-amber-50"],
+.dark span[class*="text-amber-700"],
+.dark span[class*="bg-indigo-50"],
+.dark span[class*="bg-[#006bf8]/10"] {
+  background-color: #2D3548 !important;
+  color: #E8EDF2 !important;
+}
+
+.dark aside[class*="bg-white"],
+.dark [class*="bg-[#F8FAFC]"] {
+  background-color: #12151C !important;
+  border-color: #2D3548 !important;
+}
+

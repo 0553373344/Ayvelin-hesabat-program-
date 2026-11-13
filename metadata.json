@@ -1,0 +1,6 @@
+{
+  "name": "Sifariş və Kuryer İdarəetmə Sistemi",
+  "description": "Sifarişlərin izlənməsi, kuryerlərin analitikası, anbar məhsulları və müştərilərin idarə olunması paneli.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

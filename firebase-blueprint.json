@@ -1,0 +1,282 @@
+{
+  "entities": {
+    "Customer": {
+      "title": "Customer",
+      "description": "Müştəri məlumatları",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "addresses": { "type": "array" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "isVIP": { "type": "boolean" },
+        "orderCount": { "type": "integer" },
+        "totalSpent": { "type": "number" },
+        "firstOrderDate": { "type": "string" },
+        "lastOrderDate": { "type": "string" },
+        "isBlacklisted": { "type": "boolean" },
+        "blacklistReason": { "type": "string" },
+        "blacklistedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "phone"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Məhsul məlumatları",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "SKU": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "costPrice": { "type": "number" },
+        "stock": { "type": "integer" },
+        "lowStockThreshold": { "type": "integer" },
+        "imageUrl": { "type": "string" },
+        "stockHistory": { "type": "array" }
+      },
+      "required": ["id", "name", "SKU", "category", "price", "costPrice", "stock"]
+    },
+    "Courier": {
+      "title": "Courier",
+      "description": "Kuryer məlumatları",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "standardDeliveryFee": { "type": "number" },
+        "stockBalance": { "type": "integer" },
+        "totalDeliveries": { "type": "integer" },
+        "totalEarnings": { "type": "number" }
+      },
+      "required": ["id", "name", "phone", "status"]
+    },
+    "Sale": {
+      "title": "Sale",
+      "description": "Sifariş / Satış məlumatları",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "items": { "type": "array" },
+        "deliveryType": { "type": "string", "enum": ["courier", "cargo"] },
+        "courierId": { "type": "string" },
+        "courierName": { "type": "string" },
+        "cargoCompany": { "type": "string" },
+        "deliveryCost": { "type": "number" },
+        "totalProductPrice": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "netRevenue": { "type": "number" },
+        "status": { "type": "string", "enum": ["gözləyir", "çatdırılıb", "ləğv edilib"] },
+        "paymentStatus": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "deliveredAt": { "type": "string" },
+        "isRevenueCalculated": { "type": "boolean" },
+        "statusHistory": { "type": "array" },
+        "source": { "type": "string" },
+        "telegramMessageId": { "type": "string" },
+        "telegram_message_id": { "type": "string" }
+      },
+      "required": ["id", "orderNumber", "customerName", "customerPhone", "address", "items", "deliveryType", "deliveryCost", "totalProductPrice", "totalAmount", "netRevenue", "status", "isRevenueCalculated"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Xərc məlumatları",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "amount": { "type": "number" },
+        "category": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "date": { "type": "string" },
+        "notes": { "type": "string" },
+        "source": { "type": "string", "enum": ["manual", "auto_delivery"] },
+        "linkedOrderId": { "type": "string" },
+        "linkedOrderNumber": { "type": "string" }
+      },
+      "required": ["id", "name", "amount", "category", "date", "source"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Tətbiq ayarları",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string" },
+        "currency": { "type": "string" },
+        "lowStockThreshold": { "type": "integer" },
+        "vipThreshold": { "type": "integer" },
+        "expenseCategories": { "type": "array" },
+        "productCategories": { "type": "array" }
+      },
+      "required": ["businessName", "currency", "lowStockThreshold", "vipThreshold", "expenseCategories", "productCategories"]
+    },
+    "StockTransfer": {
+      "title": "StockTransfer",
+      "description": "Depoya köçürülən malların qeydiyyat qeydləri",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "quantity": { "type": "integer" }
+      },
+      "required": ["id", "date", "productId", "productName", "quantity"]
+    },
+    "FinancialEntry": {
+      "title": "FinancialEntry",
+      "description": "Maliyyə hesabat qeydləri (gəlir və xərc tranzaksiyaları)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "order_id": { "type": "string" },
+        "entry_date": { "type": "string" },
+        "income": { "type": "number" },
+        "expense": { "type": "number" },
+        "type": { "type": "string" },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "order_id", "entry_date", "income", "expense", "type", "created_at"]
+    },
+    "TelegramLog": {
+      "title": "TelegramLog",
+      "description": "Telegram müraciətlərinin və xətalarının diaqnostika log qeydləri",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "action": { "type": "string" },
+        "status": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "details": { "type": "string" },
+        "payload": { "type": "string" },
+        "error": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "action", "status"]
+    },
+    "DeliveryProvider": {
+      "title": "DeliveryProvider",
+      "description": "Müstəqil çatdırılma şirkəti və növü",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "logoUrl": { "type": "string" },
+        "totalDeliveries": { "type": "integer" },
+        "totalCost": { "type": "number" }
+      },
+      "required": ["id", "name", "slug", "isActive"]
+    },
+    "DeliveryBranch": {
+      "title": "DeliveryBranch",
+      "description": "Çatdırılma provayderinə aid olan fiziki məntəqə və ya şöbə",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "provider": { "type": "string" },
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["id", "provider", "name", "region", "address", "isActive"]
+    },
+    "DeliveryTariff": {
+      "title": "DeliveryTariff",
+      "description": "Çatdırılma bölgələrinə və provayderlərinə görə qiymət tarifləri",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "provider": { "type": "string" },
+        "zoneName": { "type": "string" },
+        "price": { "type": "number" }
+      },
+      "required": ["id", "provider", "zoneName", "price"]
+    },
+    "DeliveryRecord": {
+      "title": "DeliveryRecord",
+      "description": "Sifarişlər üzrə fərdi çatdırılma fəaliyyətinin qeydiyyat qeydi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderId": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "provider": { "type": "string" },
+        "branchId": { "type": "string" },
+        "branchName": { "type": "string" },
+        "zoneName": { "type": "string" },
+        "cost": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "orderId", "provider", "cost", "status"]
+    }
+  },
+  "firestore": {
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Müştəri qeydləri"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Məhsul qeydləri"
+    },
+    "/couriers/{courierId}": {
+      "schema": "Courier",
+      "description": "Kuryer qeydləri"
+    },
+    "/sales/{saleId}": {
+      "schema": "Sale",
+      "description": "Satış və sifariş qeydləri"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Xərc qeydləri"
+    },
+    "/settings/general": {
+      "schema": "Settings",
+      "description": "Ümumi tətbiq tənzimləmələri"
+    },
+    "/stockTransfers/{transferId}": {
+      "schema": "StockTransfer",
+      "description": "Depoya köçürmə qeydləri"
+    },
+    "/financial_entries/{entryId}": {
+      "schema": "FinancialEntry",
+      "description": "Maliyyə hesabat qeydləri"
+    },
+    "/telegram_logs/{logId}": {
+      "schema": "TelegramLog",
+      "description": "Telegram müraciətlərinin və xətalarının diaqnostika log qeydləri"
+    },
+    "/deliveryProviders/{providerId}": {
+      "schema": "DeliveryProvider",
+      "description": "Çatdırılma provayderlərinin profil qeydləri"
+    },
+    "/deliveryBranches/{branchId}": {
+      "schema": "DeliveryBranch",
+      "description": "Çatdırılma poçt şöbələri və ya kargo filialları"
+    },
+    "/deliveryTariffs/{tariffId}": {
+      "schema": "DeliveryTariff",
+      "description": "Çatdırılma tarifləri qiymət cədvəli"
+    },
+    "/deliveryRecords/{recordId}": {
+      "schema": "DeliveryRecord",
+      "description": "Satışlar üzrə rəsmi kargo / poçt / kuryer çatdırılma qeydləri"
+    }
+  }
+}
