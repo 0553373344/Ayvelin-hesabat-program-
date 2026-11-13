@@ -78,7 +78,7 @@ function CardTooltip({ isVisible, title, items, footer }: CardTooltipProps) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 12, scale: 0.95 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
-          className="hidden lg:flex absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 bg-slate-900/95 backdrop-blur-xl text-white p-4 rounded-2xl shadow-[0_15px_30px_-5px_rgba(15,23,42,0.3)] border border-slate-800/80 z-50 w-72 pointer-events-none select-none flex-col gap-2 font-sans"
+          className="hidden lg:flex absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 bg-slate-900/95 text-white p-4 rounded-2xl shadow-[0_15px_30px_-5px_rgba(15,23,42,0.3)] border border-slate-800/80 z-50 w-72 pointer-events-none select-none flex-col gap-2 font-sans"
         >
           {/* Header */}
           <div className="flex items-center gap-1.5 border-b border-slate-800/80 pb-2">
@@ -307,7 +307,7 @@ function RealTimeNotificationCenter() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <span className="absolute inline-flex h-2.5 w-2.5 rounded-full bg-red-500 opacity-75 animate-ping top-0.5 right-0.5" />
+            <span className="absolute inline-flex h-2.5 w-2.5 rounded-full bg-red-500 opacity-75 top-0.5 right-0.5" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600 top-0.5 right-0.5" />
           </div>
           <div>
@@ -322,13 +322,13 @@ function RealTimeNotificationCenter() {
         <div className="flex items-center gap-2">
           {delayedOrders.length > 0 && (
             <span className="text-[10px] font-bold bg-rose-50 text-rose-700 px-2.5 py-1 rounded-full border border-rose-100 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
               {delayedOrders.length} Gecikmə
             </span>
           )}
           {lowStockProducts.length > 0 && (
             <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-100 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
               {lowStockProducts.length} Kritik Stok
             </span>
           )}
@@ -421,7 +421,7 @@ function RealTimeNotificationCenter() {
                         <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                           <div 
                             className={`h-full rounded-full transition-all duration-500 ${
-                              prod.stock === 0 ? "bg-red-600" : prod.stock <= 2 ? "bg-red-500 animate-pulse" : "bg-amber-500"
+                              prod.stock === 0 ? "bg-red-600" : prod.stock <= 2 ? "bg-red-500" : "bg-amber-500"
                             }`}
                             style={{ width: `${ratio}%` }}
                           />
@@ -1569,40 +1569,74 @@ export default function DashboardView() {
 
   return (
     <div className="space-y-6">
-      {/* Title Bar & Period Filter */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-5 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-xs gap-4">
-        <div className="space-y-1">
-          <h1 className="text-xl md:text-2xl font-bold text-[#1A1F2E] tracking-tight font-heading">
-            {(() => {
-              const hr = new Date().getHours();
-              const nameStr = currentUser?.displayName || "İstifadəçi";
-              if (hr >= 6 && hr < 12) {
-                return `Sabahınız xeyir, ${nameStr}!`;
-              } else if (hr >= 12 && hr < 18) {
-                return `Gününüz xeyir, ${nameStr}!`;
-              } else {
-                return `Axşamınız xeyir, ${nameStr}!`;
-              }
-            })()}
-          </h1>
-          <p className="text-xs text-slate-500 font-medium">
-            Biznesinizin cari göstəriciləri, satış dinamikası və ümumi idarəetmə xülasəsi
-          </p>
-        </div>
-
-        {/* Date options dropdown for massive space saving */}
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs font-bold text-slate-400 font-sans uppercase tracking-wider">Müddət:</span>
+      {/* Hero: greeting, period filter, profit + revenue summary */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+          <div>
+            <p className="text-xs text-slate-500">
+              {(() => {
+                const hr = new Date().getHours();
+                return hr >= 6 && hr < 12 ? "Sabahınız xeyir" : hr >= 12 && hr < 18 ? "Gününüz xeyir" : "Axşamınız xeyir";
+              })()}
+            </p>
+            <h1 className="text-2xl font-semibold tracking-tight">{currentUser?.displayName || "İstifadəçi"}!</h1>
+          </div>
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 outline-none cursor-pointer focus:border-[#006bf8]/70 focus:ring-2 focus:ring-[#006bf8]/15 transition-all shadow-xs"
-            style={{ minWidth: "160px" }}
+            className="text-xs font-semibold bg-white rounded-full px-4 py-2.5 outline-none cursor-pointer w-full sm:w-auto"
           >
             {["Bu gün", "Son 3 gün", "Bu həftə", "Bu ay", "Öncəki ay", "Son 3 ay", "Son 6 ay", "Bu il", "Ötən il", "Bütün dövrlər"].map(item => (
               <option key={item} value={item}>{item}</option>
             ))}
           </select>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {/* Black profit card */}
+          <div className="card-ink lg:col-span-3 p-5 sm:p-6">
+            <svg aria-hidden className="absolute -right-10 -top-10 w-56 h-56 opacity-[0.12]" viewBox="0 0 200 200" fill="none" stroke="#d4f72c">
+              {[30, 52, 74, 96].map(r => <circle key={r} cx="100" cy="100" r={r} strokeWidth="1.5" />)}
+            </svg>
+            <p className="text-xs text-white/60 text-center">Xalis mənfəət ({period.toLowerCase()})</p>
+            <p className="text-3xl sm:text-4xl font-semibold text-center mt-1 tracking-tight">
+              {formatCurrency(currentCalculations.netProfit)}
+            </p>
+            <div className="grid grid-cols-3 gap-2.5 mt-5 bg-white/[0.07] rounded-3xl p-2.5">
+              {[
+                { label: "Sifarişlər", icon: ShoppingBag, to: "/sales", primary: true },
+                { label: "Xərclər", icon: TrendingDown, to: "/expenses" },
+                { label: "Maliyyə", icon: BarChart3, to: "/statistics" },
+              ].map(({ label, icon: Icon, to, primary }) => (
+                <button
+                  key={to}
+                  type="button"
+                  onClick={() => navigate(to)}
+                  className="flex flex-col items-center gap-1.5 py-2 active:scale-95 transition-transform"
+                >
+                  <span className={`w-11 h-11 rounded-full flex items-center justify-center ${primary ? "bg-lime text-ink" : "bg-white/10 text-white"}`}>
+                    <Icon className="w-[18px] h-[18px]" />
+                  </span>
+                  <span className="text-[11px] text-white/80">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Lime revenue card */}
+          <div className="card-lime lg:col-span-2 p-5 sm:p-6 flex flex-col justify-between gap-5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold">Ümumi satış</span>
+              <span className="text-[11px] font-semibold bg-ink text-lime rounded-full px-2.5 py-1">
+                Marja {currentCalculations.profitMargin.toFixed(1)}%
+              </span>
+            </div>
+            <p className="text-3xl font-semibold tracking-tight">{formatCurrency(currentCalculations.grossRevenue)}</p>
+            <div className="flex items-center justify-between text-xs">
+              <span className="opacity-70">Sifariş sayı</span>
+              <strong className="text-base">{currentCalculations.orderCount}</strong>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1642,13 +1676,13 @@ export default function DashboardView() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 px-1">
                 <div className="space-y-1">
                   <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#006bf8] animate-ping" />
+                    <span className="w-2 h-2 rounded-full bg-[#006bf8]" />
                     <span>⚡ GÜNDƏLİK ƏMƏLİYYATLAR VƏ ANBAR MONITORU</span>
                   </h3>
                   <p className="text-[10px] text-slate-500 font-medium">Bütün bugünkü kuryer daxilolmaları, gözləyən paylanmalar və cari anbar qalıqları</p>
                 </div>
                 <div className="text-[10px] font-mono font-bold text-[#006bf8] bg-[#006bf8]/10 border border-[#006bf8]/20 px-3 py-1 rounded-full flex items-center gap-1.5 select-none">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#006bf8] animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#006bf8]" />
                   Real-Vaxt Bakı: {new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Baku", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date())}
                 </div>
               </div>
@@ -1721,7 +1755,7 @@ export default function DashboardView() {
                       </h4>
                     </div>
                     <div className="p-2 sm:p-2.5 bg-amber-50 text-amber-600 rounded-xl border border-amber-100 flex-shrink-0">
-                      <Clock className="w-6 h-6 animate-pulse opacity-80" />
+                      <Clock className="w-6 h-6 opacity-80" />
                     </div>
                   </div>
                   <div className="mt-3.5 pt-2.5 border-t border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono gap-1 sm:gap-0 leading-none">
@@ -1790,7 +1824,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Ümumi Satış</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">{formatCurrency(currentCalculations.grossRevenue)}</h3>
@@ -1844,7 +1878,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Xalis Mənfəət</p>
                       </div>
                       <h3 className={`text-2xl font-semibold mt-1.5 font-mono leading-none ${currentCalculations.netProfit >= 0 ? 'text-emerald-600' : 'text-rose-650'}`}>
@@ -1901,7 +1935,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Ümumi Xərc</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">{formatCurrency(currentCalculations.displayExpensesFlag)}</h3>
@@ -1955,7 +1989,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Orta Sifariş</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">{formatCurrency(currentCalculations.averageOrderValue)}</h3>
@@ -2009,7 +2043,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Xalis Marja</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">{currentCalculations.profitMargin.toFixed(1)}%</h3>
@@ -2062,7 +2096,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Reklam Xərci</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">{formatCurrency(currentCalculations.reklamXerci)}</h3>
@@ -2115,7 +2149,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Müştərilər</p>
                       </div>
                       <h3 className="text-2xl font-semibold text-[#1A1F2E] mt-1.5 font-mono leading-none">
@@ -2165,7 +2199,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div className="w-full">
                       <div className="flex items-center gap-1.5 mb-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Təkrar Alış</p>
                       </div>
                       <h3 className="text-[14px] font-bold text-[#1A1F2E] leading-tight mb-2">
@@ -2223,7 +2257,7 @@ export default function DashboardView() {
                   <div className="flex justify-between items-start gap-1">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                         <p className="text-xs font-bold text-slate-400 tracking-wider uppercase leading-none">Çatdırılma Statusu</p>
                       </div>
                       <h3 className="text-xs font-semibold text-[#1A1F2E] mt-2 flex gap-2 flex-wrap leading-tight">
@@ -2359,7 +2393,7 @@ export default function DashboardView() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 px-1">
                 <div className="space-y-0.5">
                   <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-indigo-600" />
                     <span>🎯 DİNAMİK MƏHSUL & KURYER ANALİTİKASI</span>
                   </h3>
                   <p className="text-[10px] text-slate-500 font-medium">Ən çox sifariş olunan mallar, kuryerlərin çatdırılma fəaliyyəti və bazar paylanması</p>
@@ -3480,7 +3514,7 @@ export default function DashboardView() {
         {/* Notification warnings */}
         <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm space-y-4 md:col-span-2">
           <h4 className="text-sm font-bold text-slate-700 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" /> Sürətli Xəbərdarlıqlar və Bildirişlər
+            <span className="w-2 h-2 rounded-full bg-rose-500" /> Sürətli Xəbərdarlıqlar və Bildirişlər
           </h4>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1">
