@@ -128,7 +128,7 @@ export default function MapsGroundingView() {
       {/* Header Banner */}
       <div className="p-6 bg-gradient-to-r from-emerald-700 via-teal-800 to-slate-900 text-white rounded-3xl shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1.5 z-10">
-          <div className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md">
+          <div className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-xs font-semibold">
             <MapPinned className="w-4 h-4 text-emerald-300" />
             <span>Google Maps Grounding Engine</span>
           </div>
@@ -138,8 +138,8 @@ export default function MapsGroundingView() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 px-3 py-2 rounded-2xl shrink-0 z-10 self-start md:self-auto">
-          <Navigation className="w-4 h-4 text-emerald-300 animate-pulse" />
+        <div className="flex items-center gap-2 bg-white/10 border border-white/15 px-3 py-2 rounded-2xl shrink-0 z-10 self-start md:self-auto">
+          <Navigation className="w-4 h-4 text-emerald-300" />
           <div className="text-left font-mono text-[11px]">
             <p className="text-white/70">Aktiv Məkan Koordinatı</p>
             <p className="font-bold text-white">
