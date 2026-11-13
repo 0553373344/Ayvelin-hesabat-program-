@@ -348,7 +348,7 @@ export default function GlobalSearchBar() {
                               {prod.category}
                             </span>
                             <span>•</span>
-                            <span className={`font-semibold ${prod.stock <= prod.lowStockThreshold ? "text-amber-600 font-bold animate-pulse" : "text-slate-500"}`}>
+                            <span className={`font-semibold ${prod.stock <= prod.lowStockThreshold ? "text-amber-600 font-bold" : "text-slate-500"}`}>
                               Stok: {prod.stock} ədəd
                             </span>
                           </div>
