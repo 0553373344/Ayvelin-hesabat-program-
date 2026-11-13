@@ -1115,7 +1115,7 @@ export default function SettingsView() {
                 <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block font-sans">Sistem Yükləmə Jurnal Logu (Live Feed)</label>
                 <div className="shrink-0 h-[170px] bg-slate-900 rounded-xl p-3 overflow-y-auto font-mono text-[9.5px] text-emerald-400 space-y-1 border border-slate-850 scrollbar-thin">
                   {importLogs.length === 0 ? (
-                    <div className="text-slate-500 animate-pulse text-center pt-10">Məlumatlar analiz edilir və bazaya hazırlanır...</div>
+                    <div className="text-slate-500 text-center pt-10">Məlumatlar analiz edilir və bazaya hazırlanır...</div>
                   ) : (
                     importLogs.map((logLine, idx) => (
                       <div key={idx} className="leading-relaxed border-b border-white/5 opacity-90 truncate hover:text-white transition-colors duration-150 text-left">
@@ -1775,7 +1775,7 @@ export default function SettingsView() {
               disabled={sendingTest}
               className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition-all disabled:opacity-50 select-none cursor-pointer"
             >
-              <Send className={`w-3.5 h-3.5 ${sendingTest ? "animate-pulse" : ""}`} /> Sınaq Mesajı Göndər
+              <Send className={`w-3.5 h-3.5 ${sendingTest ? "" : ""}`} /> Sınaq Mesajı Göndər
             </button>
 
             <button
@@ -1783,7 +1783,7 @@ export default function SettingsView() {
                disabled={sendingReportTest}
                className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition-all disabled:opacity-50 select-none cursor-pointer"
              >
-               <FileText className={`w-3.5 h-3.5 ${sendingReportTest ? "animate-pulse" : ""}`} /> Gün Sonu Hesabat Testi
+               <FileText className={`w-3.5 h-3.5 ${sendingReportTest ? "" : ""}`} /> Gün Sonu Hesabat Testi
              </button>
 
              <button
@@ -1970,7 +1970,7 @@ export default function SettingsView() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
-              <RefreshCw className="w-5 h-5 animate-pulse" />
+              <RefreshCw className="w-5 h-5" />
             </div>
             <div>
               <h4 className="font-bold text-slate-800 text-sm">🔀 Köhnə Data Miqrasiyası (500+ qeyd birləşdirilməsi)</h4>
