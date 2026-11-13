@@ -1,124 +1,79 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Home, Receipt, Plus, ShoppingBag, BarChart2 } from "lucide-react";
-import { motion } from "motion/react";
 import { useData } from "../context/DataContext";
 
 const navItems = [
   { id: "dashboard", icon: Home, route: "/dashboard", label: "Ana səhifə" },
   { id: "expenses", icon: Receipt, route: "/expenses", label: "Xərclər" },
-  { id: "new_order", icon: Plus, isFab: true, label: "Yeni Sifariş" },
+  { id: "new_order", icon: Plus, isFab: true, label: "Yeni sifariş" },
   { id: "sales", icon: ShoppingBag, route: "/sales", label: "Satışlar" },
   { id: "statistics", icon: BarChart2, route: "/statistics", label: "Maliyyə" },
-];
+] as const;
 
-const routeImports: Record<string, () => Promise<any>> = {
+const routeImports: Record<string, () => Promise<unknown>> = {
   "/dashboard": () => import("./DashboardView"),
   "/expenses": () => import("./ExpensesView"),
   "/sales": () => import("./SalesView"),
   "/statistics": () => import("./StatisticsView"),
 };
 
-export default function BottomNavBar() {
-  const location = useLocation();
+function BottomNavBar() {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { pathname } = location;
   const { setIsNewOrderOpen } = useData();
 
   return (
-    <div 
-      className="fixed bottom-0 left-0 right-0 z-50 px-2 sm:px-6 bg-[#1A1F2E] dark:bg-[#0B0C0E] lg:hidden"
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white lg:hidden"
       style={{
-        height: "72px",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-        borderRadius: "24px 24px 0 0",
-        boxShadow: "0 -8px 32px rgba(0, 0, 0, 0.3)",
-        paddingBottom: "env(safe-area-inset-bottom)"
+        borderRadius: "28px 28px 0 0",
+        boxShadow: "0 -10px 30px rgba(14,14,14,0.08)",
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none" 
-        style={{ background: "rgba(255, 255, 255, 0.06)", borderRadius: "24px 24px 0 0" }} 
-      />
-      <div className="relative flex items-center justify-between h-full max-w-md mx-auto z-10">
+      <div className="relative flex items-end justify-between h-[68px] max-w-md mx-auto px-3">
         {navItems.map((item) => {
-          const isActive = pathname === item.route;
           const Icon = item.icon;
 
-          if (item.isFab) {
+          if ("isFab" in item && item.isFab) {
             return (
-              <div key={item.id} className="relative flex flex-col items-center flex-shrink-0" style={{ transform: "translateY(-20px)" }}>
+              <div key={item.id} className="relative flex flex-col items-center w-16 shrink-0 pb-2">
                 <button
                   type="button"
-                  onMouseEnter={() => {
-                    const imp = routeImports["/sales"];
-                    if (imp) imp();
-                  }}
-                  onPointerDown={() => {
-                    const imp = routeImports["/sales"];
-                    if (imp) imp();
-                  }}
+                  aria-label={item.label}
+                  onPointerDown={() => routeImports["/sales"]?.()}
                   onClick={() => {
                     navigate("/sales");
                     setTimeout(() => setIsNewOrderOpen(true), 50);
                   }}
-                  className="w-[58px] h-[58px] rounded-full flex items-center justify-center text-white cursor-pointer active:scale-90 transition-transform border-[3px] border-white/10 select-none"
-                  style={{
-                    background: "linear-gradient(135deg, #1a3d1a, #2d6e2d)",
-                    boxShadow: "0 8px 24px rgba(30, 90, 30, 0.55)"
-                  }}
-                  title={item.label}
+                  className="w-14 h-14 -mt-7 rounded-full bg-ink text-lime flex items-center justify-center active:scale-90 transition-transform ring-[6px] ring-white shadow-lg"
                 >
-                  <Icon className="w-7 h-7 stroke-[2.5]" />
+                  <Icon className="w-6 h-6" strokeWidth={2.5} />
                 </button>
-                <span className="absolute -bottom-4 text-[10px] font-medium text-emerald-600/90 whitespace-nowrap tracking-wider shadow-sm select-none">
-                  {item.label}
-                </span>
+                <span className="mt-1 text-[10px] font-semibold text-ink">{item.label}</span>
               </div>
             );
           }
 
+          const route = "route" in item ? item.route : "";
+          const isActive = pathname === route;
           return (
             <button
               key={item.id}
               type="button"
-              onMouseEnter={() => {
-                if (item.route) {
-                  const imp = routeImports[item.route];
-                  if (imp) imp();
-                }
-              }}
-              onPointerDown={() => {
-                if (item.route) {
-                  const imp = routeImports[item.route];
-                  if (imp) imp();
-                }
-              }}
-              onClick={() => {
-                if (item.route && pathname !== item.route) {
-                  navigate(item.route);
-                }
-              }}
-              className="flex flex-col items-center justify-center space-y-1 w-16 cursor-pointer active:scale-90 transition-transform select-none"
+              onPointerDown={() => routeImports[route]?.()}
+              onClick={() => { if (!isActive) navigate(route); }}
+              className="flex flex-col items-center justify-center gap-1 w-16 h-full pb-2 active:scale-90 transition-transform"
             >
-              <div className="relative">
-                <Icon 
-                  className={`w-[22px] h-[22px] transition-all duration-200 ${
-                    isActive 
-                      ? "text-emerald-500 scale-115 drop-shadow-md stroke-[2.5]" 
-                      : "stroke-[2]"
-                  }`} 
-                  style={{ color: isActive ? "" : "rgba(255,255,255,0.4)" }}
-                />
-              </div>
-              <span 
-                className={`text-[10px] font-medium transition-colors ${
-                  isActive ? "text-emerald-500" : ""
+              <span
+                className={`flex items-center justify-center w-10 h-7 rounded-full transition-colors ${
+                  isActive ? "bg-lime text-ink" : "text-slate-400"
                 }`}
-                style={{ color: isActive ? "" : "rgba(255,255,255,0.4)" }}
               >
+                <Icon className="w-[20px] h-[20px]" strokeWidth={isActive ? 2.4 : 1.8} />
+              </span>
+              <span className={`text-[10px] font-semibold ${isActive ? "text-ink" : "text-slate-400"}`}>
                 {item.label}
               </span>
             </button>
@@ -128,3 +83,5 @@ export default function BottomNavBar() {
     </div>
   );
 }
+
+export default React.memo(BottomNavBar);
