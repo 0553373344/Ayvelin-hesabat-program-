@@ -335,7 +335,7 @@ export default function BiChatAgent({ sales, products, customers, expenses }: Bi
       <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
         <div className="flex items-center space-x-2.5">
           <div className="bg-indigo-600 rounded-xl p-1.5 text-white flex items-center justify-center shadow-lg shadow-indigo-650/40">
-            <Sparkles className="w-4 h-4 animate-pulse" />
+            <Sparkles className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-sm font-bold tracking-tight text-white flex items-center">
