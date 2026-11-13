@@ -133,8 +133,8 @@ export default function AiAnalystView() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-3xl text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 transform translate-x-1/3 -translate-y-1/3 w-96 h-96 bg-white/5 rounded-full pointer-events-none blur-3xl"></div>
         <div className="space-y-1.5 z-10">
-          <div className="inline-flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-blue-300 animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-full text-xs font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-blue-300" />
             <span>Ayvel Gemini AI Suite</span>
           </div>
           <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">İntellektual AI Köməkçi Qərargahı</h2>
@@ -145,7 +145,7 @@ export default function AiAnalystView() {
           {/* Live Voice Button */}
           <button
             onClick={() => setIsVoiceModalOpen(true)}
-            className="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold text-xs rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer animate-pulse"
+            className="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold text-xs rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer"
           >
             <Mic className="w-4 h-4" />
             <span>Canlı Səsli Əlaqə (Live API)</span>
@@ -305,7 +305,7 @@ export default function AiAnalystView() {
                     <div>
                       <h3 className="text-xs font-bold text-slate-900 leading-none">Interaktiv Analitik Konsol</h3>
                       <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1 mt-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                         Gemini Flash engine
                       </span>
                     </div>
