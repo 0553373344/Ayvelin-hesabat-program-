@@ -646,7 +646,7 @@ export default function CouriersView() {
                     <div>
                       <h3 className="font-extrabold text-base tracking-tight">Expargo Beynəlxalq Kargo</h3>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         <span className="text-[10px] text-slate-400 font-bold">API İnteqrasiya Aktivdir</span>
                       </div>
                     </div>
@@ -691,7 +691,7 @@ export default function CouriersView() {
                     <div>
                       <h3 className="font-extrabold text-base tracking-tight">Azərpoçt Dövlət Xidməti</h3>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         <span className="text-[10px] text-slate-400 font-bold">Respublika daxili çatdırılma</span>
                       </div>
                     </div>
@@ -1344,7 +1344,7 @@ export default function CouriersView() {
               {/* Card 1 */}
               <div className="bg-white p-6 border border-slate-100 rounded-3xl shadow-xs flex items-center gap-4.5">
                 <div className="p-3.5 bg-indigo-50 text-indigo-650 rounded-2xl">
-                  <Activity className="w-6 h-6 animate-pulse" />
+                  <Activity className="w-6 h-6" />
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-extrabold uppercase block tracking-widest">Cəmi Sifariş Sayı</span>
@@ -1507,7 +1507,7 @@ export default function CouriersView() {
       {/* 🔮 MODAL 1: COURIER PROFILE FORM DIALOG */}
       {/* ==================================================== */}
       {isFormOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
             <button 
               onClick={() => setIsFormOpen(false)}
@@ -1599,7 +1599,7 @@ export default function CouriersView() {
       {/* 🔮 MODAL 2: DEPOT STOCK TRANSFER FROM STORE DIALOG */}
       {/* ==================================================== */}
       {isTransferOpen && columbaCourier && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl border border-slate-100 relative">
             <button 
               onClick={() => setIsTransferOpen(false)}
@@ -1660,7 +1660,7 @@ export default function CouriersView() {
       {/* 🔮 MODAL 3: TARIFF EDITING MODAL (EXPARGO / AZERPOST) */}
       {/* ==================================================== */}
       {tariffModalProvider && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn">
+        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 z-50 animate-fadeIn">
           <div className="bg-white rounded-3xl w-full max-w-lg p-6 shadow-2xl border border-slate-100 relative">
             <button 
               onClick={() => {
@@ -1816,7 +1816,7 @@ export default function CouriersView() {
       {/* 🔮 MODAL 4: DYNAMIC BRANCH CREATION / EDITING DIALOG (EXPARGO / AZERPOST) */}
       {/* ==================================================== */}
       {isBranchModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn">
+        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 z-50 animate-fadeIn">
           <div className="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl border border-slate-100 relative">
             <button 
               onClick={() => setIsBranchModalOpen(false)}
