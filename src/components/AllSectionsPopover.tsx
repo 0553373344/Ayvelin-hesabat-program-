@@ -87,7 +87,7 @@ export default function AllSectionsPopover() {
       {/* Reliable click-outside transparent backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/10 backdrop-blur-[1px]" 
+          className="fixed inset-0 z-40 bg-black/10-[1px]" 
           onClick={() => setIsOpen(false)} 
         />
       )}
@@ -118,8 +118,6 @@ export default function AllSectionsPopover() {
             style={{
               maxHeight: "75vh",
               background: "rgba(14, 28, 14, 0.97)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
               borderRadius: "18px",
               boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
