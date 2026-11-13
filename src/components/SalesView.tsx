@@ -1499,7 +1499,7 @@ export default function SalesView() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-full max-w-[480px] bg-white/95 backdrop-blur-lg border-l border-slate-200/50 shadow-2xl z-[70] flex flex-col"
+              className="fixed right-0 top-0 bottom-0 w-full max-w-[480px] bg-white/95 border-l border-slate-200/50 shadow-2xl z-[70] flex flex-col"
             >
               {/* Header with macOS step bubbles */}
               <div className="p-5 border-b border-slate-100 flex items-center justify-between">
@@ -1540,7 +1540,7 @@ export default function SalesView() {
                     <div className="border border-indigo-100 bg-gradient-to-br from-indigo-50/20 via-white to-slate-50/40 rounded-2xl p-3.5 shadow-xs space-y-2.5">
                       <div className="flex justify-between items-center animate-fade-in">
                         <div className="flex items-center gap-1.5 text-slate-805 font-extrabold text-xs">
-                          <Sparkles className="w-4 h-4 text-indigo-500 animate-pulse" />
+                          <Sparkles className="w-4 h-4 text-indigo-500" />
                           <span>AI Köməkçi Operator (Sərbəst Mətn)</span>
                         </div>
                         <button
@@ -1660,7 +1660,7 @@ export default function SalesView() {
                       <div className="flex justify-between items-center">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Müştəri Adı</label>
                         {matchedCustomer?.isVIP && (
-                          <span className="text-[9px] bg-amber-500 text-white font-bold px-1.5 py-0.5 rounded animate-pulse">
+                          <span className="text-[9px] bg-amber-500 text-white font-bold px-1.5 py-0.5 rounded">
                             🌟 VIP MÜŞTƏRİ
                           </span>
                         )}
@@ -1739,7 +1739,7 @@ export default function SalesView() {
 
                     {/* Duplicate phone history Popup */}
                     {showHistoryPopup && matchedCustomer && (
-                      <div className="absolute inset-0 bg-slate-100/95 backdrop-blur-sm z-50 flex flex-col p-4 rounded-xl animate-fade-in border border-slate-200">
+                      <div className="absolute inset-0 bg-slate-100/95 z-50 flex flex-col p-4 rounded-xl animate-fade-in border border-slate-200">
                         <div className="flex justify-between items-center pb-2 border-b border-slate-200">
                           <div>
                             <h4 className="text-xs font-bold text-slate-800">Müştəri Alış Tarixçəsi</h4>
