@@ -34,7 +34,7 @@ export default function ReusableCard({
         }}
         whileTap={{ scale: 0.97 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
-        className="h-full bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-slate-100 hover:border-[#006bf8]/30 shadow-sm flex flex-col justify-between"
+        className="h-full bg-white/90 p-6 rounded-2xl border border-slate-100 hover:border-[#006bf8]/30 shadow-sm flex flex-col justify-between"
       >
         <div className="flex justify-between items-start gap-4">
           <div className="space-y-1.5 flex-1">
@@ -43,7 +43,7 @@ export default function ReusableCard({
                 {title}
               </h4>
               {badge && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#006bf8]/10 text-[#006bf8] animate-pulse">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#006bf8]/10 text-[#006bf8]">
                   {badge}
                 </span>
               )}
