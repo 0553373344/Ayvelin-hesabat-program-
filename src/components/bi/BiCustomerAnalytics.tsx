@@ -401,11 +401,11 @@ export default function BiCustomerAnalytics({ customers, sales, settings }: BiCu
             {/* Tech background map styling details */}
             <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none"></div>
             <div className="absolute top-4 right-4 text-[9px] font-mono text-slate-500 uppercase flex items-center gap-1 bg-slate-900/60 p-1 rounded">
-              <Zap className="w-3 h-3 text-indigo-400 animate-pulse" /> Telemetriya Aktiv
+              <Zap className="w-3 h-3 text-indigo-400" /> Telemetriya Aktiv
             </div>
 
             {/* Title display */}
-            <div className="z-10 bg-slate-900/60 backdrop-blur-md p-3.5 rounded-xl border border-slate-800/70 max-w-sm">
+            <div className="z-10 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/70 max-w-sm">
               <p className="text-[10px] font-bold text-slate-400 tracking-wider">Cari Görünüş: <span className="text-white uppercase font-black">{mapPreset === "all" ? "Bütün Azərbaycan və Bakı" : mapPreset === "baku" ? "Böyük Bakı (Rayonlar)" : "Azərbaycan Şəhərləri"}</span></p>
               <p className="text-[8px] text-slate-400 mt-0.5">Xəritədəki nöqtələrə toxunaraq sıxlığı və dərəcəni yoxlayın.</p>
             </div>
@@ -548,7 +548,7 @@ export default function BiCustomerAnalytics({ customers, sales, settings }: BiCu
                           cx={coord.x} 
                           cy={coord.y} 
                           r={size * (isHovered ? 2.2 : 1.8)} 
-                          className="animate-ping opacity-25 fill-indigo-400"
+                          className=" opacity-25 fill-indigo-400"
                         />
                       )}
 
@@ -596,7 +596,7 @@ export default function BiCustomerAnalytics({ customers, sales, settings }: BiCu
             {/* Quick guide map legend overlay */}
             <div className="z-10 bg-slate-900/80 border border-slate-800/80 rounded-xl p-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[9px] font-mono text-slate-300 mt-2">
               <span className="text-slate-400 font-bold uppercase mr-1">Nəzarət Dərəcələri:</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span> Çox Yüksək (&ge;15 m.)</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500"></span> Çox Yüksək (&ge;15 m.)</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Yüksək (6-14 m.)</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Orta (2-5 m.)</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Stabil (1 m.)</span>
@@ -738,7 +738,7 @@ export default function BiCustomerAnalytics({ customers, sales, settings }: BiCu
             {/* Micro Widget: Direct list with collapsible items */}
             <div className="bg-slate-900 text-white p-4 rounded-2xl space-y-2.5">
               <div className="flex items-center gap-1.5 text-indigo-400">
-                <TrendingUp className="w-4 h-4 text-indigo-451 animate-pulse" />
+                <TrendingUp className="w-4 h-4 text-indigo-451" />
                 <h4 className="text-[10px] font-bold leading-none uppercase tracking-wider">Ən Çox Satış Olan Sektorlar (Liderlər)</h4>
               </div>
               
