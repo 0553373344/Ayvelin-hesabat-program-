@@ -455,7 +455,7 @@ Mən hazırda bütün məlumat bazasına bağlanmışam. Növbəti sualınızı 
                       >
                         {speakingId === msg.id ? (
                           <>
-                            <VolumeX className="w-3 h-3 text-indigo-600 animate-pulse" />
+                            <VolumeX className="w-3 h-3 text-indigo-600" />
                             <span>Dayandır</span>
                           </>
                         ) : (
@@ -480,7 +480,7 @@ Mən hazırda bütün məlumat bazasına bağlanmışam. Növbəti sualınızı 
 
           {loading && (
             <div className="flex gap-3 justify-start">
-              <div className="w-9 h-9 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs animate-pulse">
+              <div className="w-9 h-9 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div className="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-xs text-xs font-bold text-indigo-900 flex items-center gap-3">
